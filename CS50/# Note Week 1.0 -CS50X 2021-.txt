@@ -1,0 +1,30 @@
+# Note Week 1.0 -CS50X 2021-
+FIRST HOMEWORK
+Mario Sharp:
+Need to make 
+-SAFETY (make a piramid lite)
+
+let user type 1-8 and spawn a same height piramid
+if user type = !1-8 then let user type again
+
+       #   
+      ##
+     ###
+    ####
+   #####
+  ######
+ #######
+########
+
+-CHALLANGE (make piramid)
+
+same with SAFETY but make reflection
+
+       #   #   
+      ##   ##
+     ###   ###
+    ####   ####
+   #####   #####
+  ######   ######
+ #######   #######
+########   ########
