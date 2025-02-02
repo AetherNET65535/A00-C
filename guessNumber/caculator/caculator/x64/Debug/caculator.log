@@ -1,4 +1,0 @@
-﻿  caculator.c
-C:\Users\aetherNET\Documents\65535\00 Code\01 C\guessNumber\caculator\caculator.c(1,1): warning C4335: Mac file format detected: please convert the source file to either DOS or UNIX format
-MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol main referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
-C:\Users\aetherNET\Documents\65535\00 Code\01 C\guessNumber\caculator\x64\Debug\caculator.exe : fatal error LNK1120: 1 unresolved externals
