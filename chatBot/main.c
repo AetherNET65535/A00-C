@@ -1,33 +1,30 @@
-#define _CRT_SECURE_NO_WARNINGS 1
-#pragma warning(disable:6031)
-
 #include <stdio.h>
 #include <string.h>
 
-#define BOT "Ğ¡»úÆ÷ÈË"
-#define USER "ÓÃ»§"
+#define BOT "å°æœºå™¨äºº"
+#define USER "ç”¨æˆ·"
 
 void wordDetect(char answer[])
 {
-	if (strstr(answer, "ÄãºÃ") != NULL)
+	if (strstr(answer, "ä½ å¥½") != NULL)
 	{
-		printf("%s£ºÄãºÃÑ½£¡\n", BOT);
+		printf("%sï¼šä½ å¥½å‘€ï¼\n", BOT);
 	}
-	else if (strstr(answer, "ÌìÆø") != NULL)
+	else if (strstr(answer, "å¤©æ°”") != NULL)
 	{
-		printf("%s£ºÌìÆø...ÎÒÕâÀïÃ»ÌìÆøÑ½£¡\n", BOT);
+		printf("%sï¼šå¤©æ°”...æˆ‘è¿™é‡Œæ²¡å¤©æ°”å‘€ï¼\n", BOT);
 	}
 	else if (strstr(answer, "AI") != NULL)
 	{
-		printf("%s£ºÎÒ²»ÊÇAI£¬ÊÇ%s£¡\n", BOT, BOT);
+		printf("%sï¼šæˆ‘ä¸æ˜¯AIï¼Œæ˜¯%sï¼\n", BOT, BOT);
 	}
-	else if (strstr(answer, "¿É°®") != NULL)
+	else if (strstr(answer, "å¯çˆ±") != NULL)
 	{
-		printf("%s£º%sÒ²ºÜ¿É°®£¡\n", BOT, USER);
+		printf("%sï¼š%sä¹Ÿå¾ˆå¯çˆ±ï¼\n", BOT, USER);
 	}
 	else
 	{
-		printf("%s£ºÎÒÊÇĞ¡º¢£¬Ìı²»¶®£¡\n", BOT);
+		printf("%sï¼šæˆ‘æ˜¯å°å­©ï¼Œå¬ä¸æ‡‚ï¼\n", BOT);
 	}
 }
 
@@ -35,17 +32,17 @@ int main()
 {
 	char answer[50];
 
-	printf("ÄúºÃ£¬»¶Ó­Ê¹ÓÃchatBOT£¬ÇëÊäÈë¡°ÍË³ö¡±½áÊø¶Ô»°\n");
-	printf("%s£ºÄúºÃ£¬%s£¡\n", BOT, USER);
+	printf("æ‚¨å¥½ï¼Œæ¬¢è¿ä½¿ç”¨chatBOTï¼Œè¯·è¾“å…¥â€œé€€å‡ºâ€ç»“æŸå¯¹è¯\n");
+	printf("%sï¼šæ‚¨å¥½ï¼Œ%sï¼\n", BOT, USER);
 
 	while (1) 
 	{
-		printf("%s£º", USER);
+		printf("%sï¼š", USER);
 		scanf("%s", answer);
 
-		if (strcmp(answer, "ÍË³ö") == 0) 
+		if (strcmp(answer, "é€€å‡º") == 0) 
 		{
-			printf("%s£ºÔÙ¼û£¡%s", BOT, USER);
+			printf("%sï¼šå†è§ï¼%s", BOT, USER);
 			return 0;
 		}
 		else

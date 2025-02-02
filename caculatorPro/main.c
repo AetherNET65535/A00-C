@@ -1,5 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS 1
-#pragma warning(disable:6031)
 #include <stdio.h>
 #include <string.h>
 
@@ -15,7 +13,7 @@ int main()
 
     while (1)
     {
-        printf("1¡¢¼ÆËãÆ÷\n2¡¢ÀúÊ·¼ÇÂ¼\n3¡¢ÍË³ö\nÇëÊäÈëÄúÏëÊ¹ÓÃµÄ¹¦ÄÜ£º");
+        printf("1ã€è®¡ç®—å™¨\n2ã€å†å²è®°å½•\n3ã€é€€å‡º\nè¯·è¾“å…¥æ‚¨æƒ³ä½¿ç”¨çš„åŠŸèƒ½ï¼š");
         scanf("%d", &selection);
 
         if (selection == 1)
@@ -32,7 +30,7 @@ int main()
         }
         else
         {
-            printf("Ë¯ºıÍ¿À²£¿ÔÙ´òÒ»´Î°É£º");
+            printf("ç¡ç³Šæ¶‚å•¦ï¼Ÿå†æ‰“ä¸€æ¬¡å§ï¼š");
         }
     }
 }
@@ -44,13 +42,13 @@ void caculate()
 
     while (1)
     {
-        printf("ÇëÊäÈëµÚÒ»¸öÊı×Ö£º\n");
+        printf("è¯·è¾“å…¥ç¬¬ä¸€ä¸ªæ•°å­—ï¼š\n");
         scanf("%d", &numberOne);
 
-        printf("ÇëÊäÈëÔËËã·û£º\n");
+        printf("è¯·è¾“å…¥è¿ç®—ç¬¦ï¼š\n");
         scanf(" %c", &operator);
 
-        printf("ÇëÊäÈëµÚ¶ş¸öÊı×Ö£º\n");
+        printf("è¯·è¾“å…¥ç¬¬äºŒä¸ªæ•°å­—ï¼š\n");
         scanf("%d", &numberTwo);
 
         if (operator == '*')
@@ -81,18 +79,18 @@ void caculate()
             }
             else
             {
-                printf("²»ÄÜ³ıÒÔÁã£¬ÇëÖØĞÂÊäÈë\n");
+                printf("ä¸èƒ½é™¤ä»¥é›¶ï¼Œè¯·é‡æ–°è¾“å…¥\n");
                 continue;
             }
         }
         else
         {
-            printf("ÎŞĞ§µÄÔËËã·û£¬ÇëÖØĞÂÊäÈë\n");
+            printf("æ— æ•ˆçš„è¿ç®—ç¬¦ï¼Œè¯·é‡æ–°è¾“å…¥\n");
             continue;
         }
 
         char yn;
-        printf("ÊÇ·ñ¼ÌĞø£¿\nY/N£º");
+        printf("æ˜¯å¦ç»§ç»­ï¼Ÿ\nY/Nï¼š");
         scanf(" %c", &yn);
 
         if (yn == 'n' || yn == 'N')
@@ -101,18 +99,18 @@ void caculate()
         }
         else if (yn != 'y' || yn != 'Y')
         {
-            printf("ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë\n");
+            printf("æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥\n");
         }
         else
         {
-            printf("Ë¯ºıÍ¿À²£¿ÔÙ´òÒ»´Î°É£º");
+            printf("ç¡ç³Šæ¶‚å•¦ï¼Ÿå†æ‰“ä¸€æ¬¡å§ï¼š");
         }
     }
 }
 
 void historySearch()
 {
-    printf("ÀúÊ·¼ÇÂ¼£º\n");
+    printf("å†å²è®°å½•ï¼š\n");
     for (int i = 0; i < historyTime; i++)
     {
         printf("\n%d: %s\n", i + 1, history[i]);

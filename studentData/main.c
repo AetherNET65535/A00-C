@@ -4,18 +4,18 @@
 #include <stdlib.h>
 #include <string.h>
 
-// ¼ÇÂ¼Ñ§Éú[]
+// è®°å½•å­¦ç”Ÿ[]
 struct Student 
 {
-	char name[50];	// ĞÕÃû
-	int id;						// Ñ§ºÅ
-	int score;				// ³É¼¨
+	char name[50];	// å§“å
+	int id;			// å­¦å·
+	int score;		// æˆç»©
 };
 
-#define MAX_STUDENTS 100 // ×î´óÑ§ÉúÊıÁ¿
-#define FILENAME "students.txt" // ÎÄ¼şÃû
+#define MAX_STUDENTS 100 // æœ€å¤§å­¦ç”Ÿæ•°é‡
+#define FILENAME "students.txt" // æ–‡ä»¶å
 
-// º¯ÊıÉùÃ÷
+// å‡½æ•°å£°æ˜
 void addStudent(struct Student students[], int *count);
 void checkStudents(struct Student students[], int count);
 void modifyStudent(struct Student students[], int count);
@@ -27,33 +27,33 @@ void addStudent(struct Student students[], int *count)
 {
 	if (*count >= MAX_STUDENTS)
 	{
-		printf("¿Õ¼äÒÑÂú£¬ÎŞ·¨Ìí¼Ó\n");
+		printf("ç©ºé—´å·²æ»¡ï¼Œæ— æ³•æ·»åŠ \n");
 		return;
 	}
 
 	struct Student newStudent;
-	printf("ÇëÊäÈëÑ§ÉúĞÕÃû£º");
+	printf("è¯·è¾“å…¥å­¦ç”Ÿå§“åï¼š");
 	scanf("%s", newStudent.name);
-	printf("ÇëÊäÈëÑ§ÉúÑ§ºÅ£º");
+	printf("è¯·è¾“å…¥å­¦ç”Ÿå­¦å·ï¼š");
 	scanf("%d", &newStudent.id);
-	printf("ÇëÊäÈëÑ§Éú³É¼¨£º");
+	printf("è¯·è¾“å…¥å­¦ç”Ÿæˆç»©ï¼š");
 	scanf("%d", &newStudent.score);
 
 	students[*count] = newStudent;
 	(*count)++;
-	printf("Ìí¼Ó³É¹¦\n");
+	printf("æ·»åŠ æˆåŠŸ\n");
 }
 
 void checkStudents(struct Student students[], int count)
 {
 	if (count == 0)
 	{
-		printf("ÎŞĞÅÏ¢\n");
+		printf("æ— ä¿¡æ¯\n");
 		return;
 	}
 
-	printf("Ñ§ÉúÁĞ±í£º\n");
-	printf("ID\tĞÕÃû\t\t³É¼¨\n");
+	printf("å­¦ç”Ÿåˆ—è¡¨ï¼š\n");
+	printf("ID\tå§“å\t\tæˆç»©\n");
 	printf("-----------------------------\n");
 
 	for (int i = 0; i < count; i++)
@@ -66,54 +66,54 @@ void modifyStudent(struct Student students[], int count)
 {
 		if (count == 0)
 		{
-			printf("ÎŞĞÅÏ¢\n");
+			printf("æ— ä¿¡æ¯\n");
 			return;
 		}
 
 		int id;
-			printf("ÇëÊäÈëÒªĞŞ¸ÄµÄÑ§ÉúºÅ£º");
+			printf("è¯·è¾“å…¥è¦ä¿®æ”¹çš„å­¦ç”Ÿå·ï¼š");
 			scanf("%d", &id);
 
 			for (int i = 0; i < count; i++)
 			{
 				if (students[i].id == id)
 				{
-					printf("ÕÒµ½Ñ§Éú£º%s£¨Ñ§ºÅ£º%d, ³É¼¨£º%d)\n", students[i].name, students[i].id, students[i].score);
-					printf("ĞÂĞÕÃû£º");
+					printf("æ‰¾åˆ°å­¦ç”Ÿï¼š%sï¼ˆå­¦å·ï¼š%d, æˆç»©ï¼š%d)\n", students[i].name, students[i].id, students[i].score);
+					printf("æ–°å§“åï¼š");
 					scanf("%s", students[i].name);
-					printf("ĞÂ³É¼¨£º");
+					printf("æ–°æˆç»©ï¼š");
 					scanf("%d", &students[i].score);
-					printf("ĞŞ¸Ä³É¹¦\n");
+					printf("ä¿®æ”¹æˆåŠŸ\n");
 					return;
 				}
 			}
-		printf("Î´ÕÒµ½Ñ§ºÅÎª%dµÄÑ§Éú\n", id);
+		printf("æœªæ‰¾åˆ°å­¦å·ä¸º%dçš„å­¦ç”Ÿ\n", id);
 }
 
 	void deleteStudent(struct Student students[], int* count)
 	{
 		if (*count == 0)
 		{
-			printf("ÎŞĞÅÏ¢\n");
+			printf("æ— ä¿¡æ¯\n");
 			return;
 		}
 
 		int id;
-		printf("ÇëÊäÈëÒªÉ¾³ıµÄÑ§ÉúÑ§ºÅ£º");
+		printf("è¯·è¾“å…¥è¦åˆ é™¤çš„å­¦ç”Ÿå­¦å·ï¼š");
 		scanf("%d", &id);
 
 		for (int i = 0; i < *count; i++)
 		{
 			if (students[i].id == id)
 			{
-				//½«×îºóÒ»¸öÑ§ÉúĞÅÏ¢¸²¸Çµ½µ±Ç°Î»ÖÃ
+				//å°†æœ€åä¸€ä¸ªå­¦ç”Ÿä¿¡æ¯è¦†ç›–åˆ°å½“å‰ä½ç½®
 				students[i] = students[*count - 1];
 				(*count)--;
-				printf("É¾³ı³É¹¦\n");
+				printf("åˆ é™¤æˆåŠŸ\n");
 				return;
 			}
 		}
-		printf("Î´ÕÒµ½Ñ§ºÅÎª%dµÄÑ§Éú", id);
+		printf("æœªæ‰¾åˆ°å­¦å·ä¸º%dçš„å­¦ç”Ÿ", id);
 	}
 
 	void saveToFile(struct Student students[], int count)
@@ -121,7 +121,7 @@ void modifyStudent(struct Student students[], int count)
 		FILE* file = fopen(FILENAME, "w");
 		if (file == NULL)
 		{
-			printf("ÎÄ¼ş´ò¿ªÊ§°Ü£¬ÎŞ·¨±£´æ\n");
+			printf("æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼Œæ— æ³•ä¿å­˜\n");
 			return;
 		}
 
@@ -130,7 +130,7 @@ void modifyStudent(struct Student students[], int count)
 			fprintf(file, "%s %d %d\n", students[i].name, students[i].id, students[i].score);
 		}
 		fclose(file);
-		printf("ÒÑ±£´æ\n");
+		printf("å·²ä¿å­˜\n");
 	}
 
 	void loadFromFile(struct Student students[], int* count)
@@ -138,7 +138,7 @@ void modifyStudent(struct Student students[], int count)
 		FILE* file = fopen(FILENAME, "r");
 		if (file == NULL)
 		{
-			printf("ÎÄ¼ş´ò¿ªÊ§°Ü£¬ÎŞ·¨¶ÁÈ¡\n");
+			printf("æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼Œæ— æ³•è¯»å–\n");
 			return;
 		}
 
@@ -148,30 +148,30 @@ void modifyStudent(struct Student students[], int count)
 			(*count)++;
 		}
 		fclose(file);
-		printf("ÒÑ¶ÁÈ¡\n");
+		printf("å·²è¯»å–\n");
 	}
 
 int main()
 {
-	struct Student students[MAX_STUDENTS]; // Ñ§ÉúÊı×é
-	int count = 0; // µ±Ç°Ñ§ÉúÊıÁ¿
+	struct Student students[MAX_STUDENTS]; // å­¦ç”Ÿæ•°ç»„
+	int count = 0; // å½“å‰å­¦ç”Ÿæ•°é‡
 
-	int selection = 0; // ÓÃ»§Ñ¡Ôñ
+	int selection = 0; // ç”¨æˆ·é€‰æ‹©
 	while (1)
 	{
-		// ÏÔÊ¾²Ëµ¥
-		printf("\n»¶Ó­Ê¹ÓÃÑ§Éú¹ÜÀíÏµÍ³£º\n");
-		printf("1¡¢Ìí¼Ó\n");
-		printf("2¡¢²é¿´\n");
-		printf("3¡¢ĞŞ¸Ä\n");
-		printf("4¡¢É¾³ı\n");
-		printf("5¡¢±£´æ\n");
-		printf("6¡¢¶ÁÈ¡\n");
-		printf("7¡¢ÍË³ö\n");
-		printf("ÇëÑ¡Ôñ²Ù×÷£º\n");
+		// æ˜¾ç¤ºèœå•
+		printf("\næ¬¢è¿ä½¿ç”¨å­¦ç”Ÿç®¡ç†ç³»ç»Ÿï¼š\n");
+		printf("1ã€æ·»åŠ \n");
+		printf("2ã€æŸ¥çœ‹\n");
+		printf("3ã€ä¿®æ”¹\n");
+		printf("4ã€åˆ é™¤\n");
+		printf("5ã€ä¿å­˜\n");
+		printf("6ã€è¯»å–\n");
+		printf("7ã€é€€å‡º\n");
+		printf("è¯·é€‰æ‹©æ“ä½œï¼š\n");
 		scanf("%d", &selection);
 
-		// ´¦ÀíÓÃ»§Ñ¡Ôñ
+		// å¤„ç†ç”¨æˆ·é€‰æ‹©
 		switch (selection)
 		{
 		case 1:
@@ -193,10 +193,10 @@ int main()
 			loadFromFile(students, &count);
 			break;
 		case 7:
-			printf("ÒÑÍË³ö\n");
+			printf("å·²é€€å‡º\n");
 			return 0;
 		default:
-			printf("ÊäÈëÎŞĞ§£¬ÇëÖØĞÂÑ¡Ôñ£¡\n");
+			printf("è¾“å…¥æ— æ•ˆï¼Œè¯·é‡æ–°é€‰æ‹©ï¼\n");
 		}
 	}
 	return 0;

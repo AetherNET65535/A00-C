@@ -1,9 +1,7 @@
-#define _CRT_SECURE_NO_WARNINGS 1
-#pragma warning(disable:6031)
 #include <stdio.h>
 #include <string.h>
 
-// Êé±¾ĞÅÏ¢½á¹¹Ìå
+// ä¹¦æœ¬ä¿¡æ¯ç»“æ„ä½“
 struct book 
 {
 	char title [50];
@@ -12,11 +10,11 @@ struct book
 	char releaseDate[25];
 };
 
-// define·ÖÇø
+// defineåˆ†åŒº
 #define MAX_BOOKS 10
 #define FILENAME "book.txt"
 
-// º¯ÊıÉùÃ÷
+// å‡½æ•°å£°æ˜
 void addBook(struct book nowBook[], int *count);
 void checkBook(struct book nowBook[], int count);
 void editBook(struct book nowBook[], int count);
@@ -29,36 +27,36 @@ void addBook(struct book nowBook[], int *count)
 {
 	if (*count >= MAX_BOOKS)
 	{
-		printf("¿Õ¼ä×ÔÂú£¬ÎŞ·¨Ìí¼Ó\n");
+		printf("ç©ºé—´è‡ªæ»¡ï¼Œæ— æ³•æ·»åŠ \n");
 		return;
 	}
 
 	struct book newBook;
-	printf("ÇëÊäÈë±êÌâ£º");
+	printf("è¯·è¾“å…¥æ ‡é¢˜ï¼š");
 	scanf("%s", newBook.title);
-	printf("ÇëÊäÈë×÷ÕßÃû£º");
+	printf("è¯·è¾“å…¥ä½œè€…åï¼š");
 	scanf("%s", newBook.author);
-	printf("ÇëÊäÈë·¢ĞĞÉÌ£º");
+	printf("è¯·è¾“å…¥å‘è¡Œå•†ï¼š");
 	scanf("%s", newBook.releaseCom);
-	printf("ÇëÊäÈë·¢ĞĞÈÕÆÚ£º");
+	printf("è¯·è¾“å…¥å‘è¡Œæ—¥æœŸï¼š");
 	scanf("%s", newBook.releaseDate);
 
 
 	nowBook[*count] = newBook;
 	(*count)++;
-	printf("Ìí¼Ó³É¹¦\n");
+	printf("æ·»åŠ æˆåŠŸ\n");
 }
 
 void checkBook(struct book nowBook[], int count)
 {
 	if (count == 0)
 	{
-		printf("ÎŞĞÅÏ¢\n");
+		printf("æ— ä¿¡æ¯\n");
 		return;
 	}
 
-	printf("Êé±¾ÁĞ±í£º\n");
-	printf("±êÌâ\t\t×÷Õß\t·¢ĞĞÉÌ\t·¢ĞĞÈÕÆÚ\n");
+	printf("ä¹¦æœ¬åˆ—è¡¨ï¼š\n");
+	printf("æ ‡é¢˜\t\tä½œè€…\tå‘è¡Œå•†\tå‘è¡Œæ—¥æœŸ\n");
 	printf("----------------------------------------------------------\n");
 
 	for (int i = 0; i < count; i++)
@@ -71,30 +69,30 @@ void editBook(struct book nowBook[], int count)
 {
 	if (count == 0)
 	{
-		printf("ÎŞĞÅÏ¢\n");
+		printf("æ— ä¿¡æ¯\n");
 		return;
 	}
 
 	char title[50];
-	printf("ÇëÊäÈëÒª±à¼­µÄÊéµÄ±êÌâ£º");
+	printf("è¯·è¾“å…¥è¦ç¼–è¾‘çš„ä¹¦çš„æ ‡é¢˜ï¼š");
 	scanf("%s", title);
 
 	for (int i = 0; i < count; i++)
 	{
 		if (strcmp(nowBook[i].title, title)==0)
 		{
-			printf("ÒÑÕÒµ½£º%s\t\t%s\t%s\t%s\n", nowBook[i].title, nowBook[i].author, nowBook[i].releaseCom, nowBook[i].releaseDate);
-			printf("ĞÂ±êÌâ£º");
+			printf("å·²æ‰¾åˆ°ï¼š%s\t\t%s\t%s\t%s\n", nowBook[i].title, nowBook[i].author, nowBook[i].releaseCom, nowBook[i].releaseDate);
+			printf("æ–°æ ‡é¢˜ï¼š");
 			scanf("%s", nowBook[i].title);
-			printf("ĞÂ×÷Õß£º");
+			printf("æ–°ä½œè€…ï¼š");
 			scanf("%s", nowBook[i].author);
-			printf("ĞÂ·¢ĞĞÉÌ£º");
+			printf("æ–°å‘è¡Œå•†ï¼š");
 			scanf("%s", nowBook[i].releaseCom);
-			printf("ĞÂ·¢ĞĞÈÕÆÚ£º");
+			printf("æ–°å‘è¡Œæ—¥æœŸï¼š");
 			scanf("%s", nowBook[i].releaseDate);
 		}
 	}
-	printf("Î´ÕÒµ½±êÌâÎª%sµÄÊé±¾", title);
+	printf("æœªæ‰¾åˆ°æ ‡é¢˜ä¸º%sçš„ä¹¦æœ¬", title);
 	return;
 }
 
@@ -102,12 +100,12 @@ void deleteBook(struct book nowBook[], int* count)
 {
 	if (count == 0)
 	{
-		printf("ÎŞĞÅÏ¢\n");
+		printf("æ— ä¿¡æ¯\n");
 		return;
 	}
 
 	char title[50];
-	printf("ÇëÊäÈëÒªÉ¾³ıµÄÊéµÄ±êÌâ£º");
+	printf("è¯·è¾“å…¥è¦åˆ é™¤çš„ä¹¦çš„æ ‡é¢˜ï¼š");
 	scanf("%s", title);
 
 	char yn;
@@ -116,22 +114,22 @@ void deleteBook(struct book nowBook[], int* count)
 	{
 		if (strcmp(nowBook[i].title, title)==0)
 		{
-			printf("ÒÑÕÒµ½£º%s\t\t%s\t%s\t%s\n", nowBook[i].title, nowBook[i].author, nowBook[i].releaseCom, nowBook[i].releaseDate);
-			printf("È·ÈÏÉ¾³ı£¿(y/n)\n");
+			printf("å·²æ‰¾åˆ°ï¼š%s\t\t%s\t%s\t%s\n", nowBook[i].title, nowBook[i].author, nowBook[i].releaseCom, nowBook[i].releaseDate);
+			printf("ç¡®è®¤åˆ é™¤ï¼Ÿ(y/n)\n");
 			scanf(" %c", &yn);
 			switch (yn)
 			{
 			case 'y':
 				nowBook[i] = nowBook[*count - 1];
 				(*count)--;
-				printf("É¾³ı³É¹¦\n");
+				printf("åˆ é™¤æˆåŠŸ\n");
 				return;
 			case 'n':
 				return;
 			}
 		}
 	}
-	printf("Î´ÕÒµ½±êÌâÎª%sµÄÊé±¾", title);
+	printf("æœªæ‰¾åˆ°æ ‡é¢˜ä¸º%sçš„ä¹¦æœ¬", title);
 	return;
 }
 
@@ -140,25 +138,25 @@ void saveBookFile(struct book nowBook[], int count)
 	FILE* file = fopen(FILENAME, "wb");
 	if (file == NULL)
 	{
-		printf("ÎÄ¼ş´ò¿ªÊ§°Ü£¬ÎŞ·¨±£´æ\n");
+		printf("æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼Œæ— æ³•ä¿å­˜\n");
 		return;
 	}
 
 	if (fwrite(&count, sizeof(int), 1, file) != 1) 
 	{
-		printf("±£´æÊé±¾ÊıÁ¿Ê§°Ü\n");
+		printf("ä¿å­˜ä¹¦æœ¬æ•°é‡å¤±è´¥\n");
 		fclose(file);
 		return;
 	}
 
 	if (fwrite(nowBook, sizeof(struct book), count, file) != (size_t)count)
 	{
-		printf("±£´æÊé±¾Êı¾İÊ§°Ü\n");
+		printf("ä¿å­˜ä¹¦æœ¬æ•°æ®å¤±è´¥\n");
 		fclose(file);
 		return;
 	}
 	fclose(file);
-	printf("ÒÑ±£´æ\n");
+	printf("å·²ä¿å­˜\n");
 }
 
 void loadBookFile(struct book nowBook[], int *count)
@@ -166,13 +164,13 @@ void loadBookFile(struct book nowBook[], int *count)
 	FILE* file = fopen(FILENAME, "r");
 	if (file == NULL)
 	{
-		printf("ÎÄ¼ş´ò¿ªÊ§°Ü£¬ÎŞ·¨±£´æ\n");
+		printf("æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼Œæ— æ³•ä¿å­˜\n");
 		return;
 	}
 
 	if (fread(count, sizeof(int), 1, file) != 1) 
 	{
-		printf("¶ÁÈ¡Êé±¾ÊıÁ¿Ê§°Ü\n");
+		printf("è¯»å–ä¹¦æœ¬æ•°é‡å¤±è´¥\n");
 		fclose(file);
 		return;
 	}
@@ -180,7 +178,7 @@ void loadBookFile(struct book nowBook[], int *count)
 	
 	if (*count > MAX_BOOKS)
 	{
-		printf("ÎÄ¼şÄÚÈİ³¬³ö×î´ó´æ´¢ÏŞÖÆ\n");
+		printf("æ–‡ä»¶å†…å®¹è¶…å‡ºæœ€å¤§å­˜å‚¨é™åˆ¶\n");
 		fclose(file);
 		*count = 0; 
 		return;
@@ -188,21 +186,21 @@ void loadBookFile(struct book nowBook[], int *count)
 
 	if (fread(nowBook, sizeof(struct book), *count, file) != (size_t)(*count))
 	{
-		printf("¶ÁÈ¡Êé±¾Êı¾İÊ§°Ü\n");
+		printf("è¯»å–ä¹¦æœ¬æ•°æ®å¤±è´¥\n");
 		fclose(file);
 		*count = 0; 
 		return;
 	}
 
 	fclose(file);
-	printf("ÒÑ¶ÁÈ¡\n");
+	printf("å·²è¯»å–\n");
 }
 
 void sortBook(struct book nowBook[], int count, int byTitle)
 {
 	if (count <= 1)
 	{
-		printf("ÎŞĞèÅÅĞò\n");
+		printf("æ— éœ€æ’åº\n");
 		return;
 	}
 
@@ -231,11 +229,11 @@ void sortBook(struct book nowBook[], int count, int byTitle)
 
 	if (byTitle)
 	{
-		printf("ÒÑ°´ÊéÃûÅÅĞò\n");
+		printf("å·²æŒ‰ä¹¦åæ’åº\n");
 	}
 	else
 	{
-		printf("ÒÑ°´³ö°æÈÕÆÚÅÅĞò\n");
+		printf("å·²æŒ‰å‡ºç‰ˆæ—¥æœŸæ’åº\n");
 	}
 }
 
@@ -247,15 +245,15 @@ int main()
 	int selection = 0;
 	while (1)
 	{
-		printf("\n»¶Ó­Ê¹ÓÃÍ¼Êé¹ÜÀíÏµÍ³£º\n");
-		printf("1¡¢Ìí¼Ó\n");
-		printf("2¡¢²é¿´\n");
-		printf("3¡¢±à¼­\n");
-		printf("4¡¢É¾³ı\n");
-		printf("5¡¢±£´æ\n");
-		printf("6¡¢¶ÁÈ¡\n");
-		printf("7¡¢ÍË³ö\n");
-		printf("ÇëÑ¡Ôñ²Ù×÷£º\n");
+		printf("\næ¬¢è¿ä½¿ç”¨å›¾ä¹¦ç®¡ç†ç³»ç»Ÿï¼š\n");
+		printf("1ã€æ·»åŠ \n");
+		printf("2ã€æŸ¥çœ‹\n");
+		printf("3ã€ç¼–è¾‘\n");
+		printf("4ã€åˆ é™¤\n");
+		printf("5ã€ä¿å­˜\n");
+		printf("6ã€è¯»å–\n");
+		printf("7ã€é€€å‡º\n");
+		printf("è¯·é€‰æ‹©æ“ä½œï¼š\n");
 		scanf("%d", &selection);
 
 		switch (selection)
@@ -279,10 +277,10 @@ int main()
 			loadBookFile(nowBook, &count);
 			break;
 		case 7:
-			printf("ÒÑÍË³ö\n");
+			printf("å·²é€€å‡º\n");
 			return 0;
 		case 8:
-			printf("Ñ¡ÔñÅÅĞò·½·¨£º\n1¡¢°´ÊéÃû\n2¡¢°´³ö°æÈÕÆÚ\n");
+			printf("é€‰æ‹©æ’åºæ–¹æ³•ï¼š\n1ã€æŒ‰ä¹¦å\n2ã€æŒ‰å‡ºç‰ˆæ—¥æœŸ\n");
 			int sortOption;
 			scanf("%d", &sortOption);
 			if (sortOption == 1)
@@ -295,10 +293,10 @@ int main()
 			}
 			else
 			{
-				printf("ÎŞĞ§µÄÑ¡Ôñ\n");
+				printf("æ— æ•ˆçš„é€‰æ‹©\n");
 			}
 		default:
-			printf("ÊäÈëÎŞĞ§£¬ÇëÖØĞÂÊäÈë\n");
+			printf("è¾“å…¥æ— æ•ˆï¼Œè¯·é‡æ–°è¾“å…¥\n");
 		}
 	}
 	return 0;
