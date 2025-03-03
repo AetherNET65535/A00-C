@@ -2,107 +2,126 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-char *src;  // 全局指针，用于遍历输入字符串
+char* input;  // 全局指针，指向当前解析的字符位置
 
-// 跳过空格
+// 跳过空白字符
 void skip_spaces() {
-    while (*src == ' ') src++;
+    while (*input == ' ' || *input == '\t') {
+        input++;
+    }
 }
 
-// 新增：处理一元负号的核心逻辑
+// 声明函数（用于相互调用）
+int parse_expr();
+
+// 解析多位数（含负数）
+int parse_number() {
+    int sign = 1;
+    int num = 0;
+    
+    skip_spaces();
+    if (*input == '-') {  // 处理负数符号
+        sign = -1;
+        input++;
+        skip_spaces();
+    }
+    
+    while (isdigit(*input)) {
+        num = num * 10 + (*input - '0');
+        input++;
+    }
+    return sign * num;
+}
+
+// 解析因子（数字或括号表达式）
 int parse_factor() {
     skip_spaces();
-    int sign = 1;  // 默认符号为正
+    int result;
     
-    // 检查是否有一元负号
-    if (*src == '-') {
-        sign = -1;
-        src++;  // 跳过负号
+    if (*input == '(') {  // 处理括号
+        input++;
+        result = parse_expr();
         skip_spaces();
-        
-        // 检查负号后是否是合法内容（数字或括号）
-        if (!isdigit(*src) && *src != '(') {
-            printf("错误：负号后缺少数字或括号\n");
-            exit(1);
+        if (*input != ')') {
+            fprintf(stderr, "错误：缺少右括号\n");
+            exit(EXIT_FAILURE);
         }
-    }
-    
-    int result = 0;
-    if (*src == '(') {
-        src++;  // 跳过'('
-        result = parse_factor();  // 递归解析括号内的表达式
-        skip_spaces();
-        if (*src != ')') {
-            printf("错误：缺少右括号\n");
-            exit(1);
-        }
-        src++;  // 跳过')'
-    } else if (isdigit(*src)) {
-        while (isdigit(*src)) {
-            result = result * 10 + (*src - '0');
-            src++;
-        }
+        input++;
+    } else if (isdigit(*input) || *input == '-') {  // 处理数字和显式负数
+        result = parse_number();
     } else {
-        printf("错误：非法字符 '%c'\n", *src);
-        exit(1);
-    }
-    
-    return sign * result;  // 应用符号
-}
-
-// 解析乘除法
-int parse_term() {
-    int result = parse_factor();
-    skip_spaces();
-    
-    while (*src == '*' || *src == '/') {
-        char op = *src;
-        src++;
-        int factor = parse_factor();
-        
-        if (op == '*') {
-            result *= factor;
-        } else {
-            if (factor == 0) {
-                printf("错误：除数为零\n");
-                exit(1);
-            }
-            result /= factor;
-        }
-        skip_spaces();
+        fprintf(stderr, "错误：期待数字或括号，找到 '%c'\n", *input);
+        exit(EXIT_FAILURE);
     }
     return result;
 }
 
-// 解析加减法
-int parse_expression() {
-    int result = parse_term();
-    skip_spaces();
+// 解析项（显式乘除运算）
+int parse_term() {
+    int result = parse_factor();  // 获取第一个因子
     
-    while (*src == '+' || *src == '-') {
-        char op = *src;
-        src++;
-        int term = parse_term();
-        
-        if (op == '+') {
-            result += term;
-        } else {
-            result -= term;
-        }
+    while (1) {
         skip_spaces();
+        if (*input == '*' || *input == '/') {
+            char op = *input;
+            input++;
+            int num = parse_factor();
+            if (op == '*') {
+                result *= num;
+            } else {
+                if (num == 0) {
+                    fprintf(stderr, "错误：除以零\n");
+                    exit(EXIT_FAILURE);
+                }
+                result /= num;
+            }
+        } else {
+            break;  // 结束当前项解析
+        }
+    }
+    return result;
+}
+
+// 解析表达式（加减运算）
+int parse_expr() {
+    int result = parse_term();  // 获取第一个项
+    
+    while (1) {
+        skip_spaces();
+        if (*input == '+' || *input == '-') {
+            char op = *input;
+            input++;
+            int num = parse_term();
+            if (op == '+') {
+                result += num;
+            } else {
+                result -= num;
+            }
+        } else {
+            break;  // 结束表达式解析
+        }
     }
     return result;
 }
 
 int main() {
-    char input[1024];
-    printf("请输入表达式（支持+-*/和括号）：\n");
-    fgets(input, sizeof(input), stdin);
+    char buffer[1024];
+    printf("请输入表达式（必须使用显式乘号）：\n");
+    if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+        fprintf(stderr, "读取输入失败\n");
+        return EXIT_FAILURE;
+    }
     
-    src = input;
-    int result = parse_expression();
+    input = buffer;
+    int result = parse_expr();
+    
+    // 验证是否解析完整个输入
+    skip_spaces();
+    if (*input != '\0' && *input != '\n') {
+        fprintf(stderr, "错误：无效字符 '%c'（是否忘记乘号？）\n", *input);
+        return EXIT_FAILURE;
+    }
     
     printf("计算结果：%d\n", result);
     return 0;
 }
- 
