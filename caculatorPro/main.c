@@ -1,118 +1,108 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
 
-void caculate();
-void historySearch();
+char *src;  // 全局指针，用于遍历输入字符串
 
-char history[10][50];
-int historyTime = 0;
-
-int main()
-{
-    int selection;
-
-    while (1)
-    {
-        printf("1、计算器\n2、历史记录\n3、退出\n请输入您想使用的功能：");
-        scanf("%d", &selection);
-
-        if (selection == 1)
-        {
-            caculate();
-        }
-        else if (selection == 2)
-        {
-            historySearch();
-        }
-        else if (selection == 3)
-        {
-            return 0;
-        }
-        else
-        {
-            printf("睡糊涂啦？再打一次吧：");
-        }
-    }
+// 跳过空格
+void skip_spaces() {
+    while (*src == ' ') src++;
 }
 
-void caculate()
-{
-    int numberOne, numberTwo, answer;
-    char  operator;
-
-    while (1)
-    {
-        printf("请输入第一个数字：\n");
-        scanf("%d", &numberOne);
-
-        printf("请输入运算符：\n");
-        scanf(" %c", &operator);
-
-        printf("请输入第二个数字：\n");
-        scanf("%d", &numberTwo);
-
-        if (operator == '*')
-        {
-            answer = (numberOne * numberTwo);
-            printf("%d * %d = %d", numberOne, numberTwo, answer);
-            sprintf(history[historyTime++], "%d * %d = %d", numberOne, numberTwo, answer);
+// 新增：处理一元负号的核心逻辑
+int parse_factor() {
+    skip_spaces();
+    int sign = 1;  // 默认符号为正
+    
+    // 检查是否有一元负号
+    if (*src == '-') {
+        sign = -1;
+        src++;  // 跳过负号
+        skip_spaces();
+        
+        // 检查负号后是否是合法内容（数字或括号）
+        if (!isdigit(*src) && *src != '(') {
+            printf("错误：负号后缺少数字或括号\n");
+            exit(1);
         }
-        else if (operator == '+')
-        {
-            answer = (numberOne + numberTwo);
-            printf("%d + %d = %d", numberOne, numberTwo, answer);
-            sprintf(history[historyTime++], "%d + %d = %d", numberOne, numberTwo, answer);
+    }
+    
+    int result = 0;
+    if (*src == '(') {
+        src++;  // 跳过'('
+        result = parse_factor();  // 递归解析括号内的表达式
+        skip_spaces();
+        if (*src != ')') {
+            printf("错误：缺少右括号\n");
+            exit(1);
         }
-        else if (operator == '-')
-        {
-            answer = (numberOne - numberTwo);
-            printf("%d - %d = %d", numberOne, numberTwo, answer);
-            sprintf(history[historyTime++], "%d - %d = %d", numberOne, numberTwo, answer);
+        src++;  // 跳过')'
+    } else if (isdigit(*src)) {
+        while (isdigit(*src)) {
+            result = result * 10 + (*src - '0');
+            src++;
         }
-        else if (operator == '/')
-        {
-            if (numberTwo != 0)
-            {
-                answer = (numberOne / numberTwo);
-                printf("%d / %d = %d", numberOne, numberTwo, answer);
-                sprintf(history[historyTime++], "%d / %d = %d", numberOne, numberTwo, answer);
+    } else {
+        printf("错误：非法字符 '%c'\n", *src);
+        exit(1);
+    }
+    
+    return sign * result;  // 应用符号
+}
+
+// 解析乘除法
+int parse_term() {
+    int result = parse_factor();
+    skip_spaces();
+    
+    while (*src == '*' || *src == '/') {
+        char op = *src;
+        src++;
+        int factor = parse_factor();
+        
+        if (op == '*') {
+            result *= factor;
+        } else {
+            if (factor == 0) {
+                printf("错误：除数为零\n");
+                exit(1);
             }
-            else
-            {
-                printf("不能除以零，请重新输入\n");
-                continue;
-            }
+            result /= factor;
         }
-        else
-        {
-            printf("无效的运算符，请重新输入\n");
-            continue;
-        }
-
-        char yn;
-        printf("是否继续？\nY/N：");
-        scanf(" %c", &yn);
-
-        if (yn == 'n' || yn == 'N')
-        {
-            break;
-        }
-        else if (yn != 'y' || yn != 'Y')
-        {
-            printf("无效输入，请重新输入\n");
-        }
-        else
-        {
-            printf("睡糊涂啦？再打一次吧：");
-        }
+        skip_spaces();
     }
+    return result;
 }
 
-void historySearch()
-{
-    printf("历史记录：\n");
-    for (int i = 0; i < historyTime; i++)
-    {
-        printf("\n%d: %s\n", i + 1, history[i]);
+// 解析加减法
+int parse_expression() {
+    int result = parse_term();
+    skip_spaces();
+    
+    while (*src == '+' || *src == '-') {
+        char op = *src;
+        src++;
+        int term = parse_term();
+        
+        if (op == '+') {
+            result += term;
+        } else {
+            result -= term;
+        }
+        skip_spaces();
     }
+    return result;
 }
+
+int main() {
+    char input[1024];
+    printf("请输入表达式（支持+-*/和括号）：\n");
+    fgets(input, sizeof(input), stdin);
+    
+    src = input;
+    int result = parse_expression();
+    
+    printf("计算结果：%d\n", result);
+    return 0;
+}
+ 
