@@ -10,6 +10,16 @@ int parse_expr();
 int parse_term();
 int parse_factor();
 
+int parse_expr()
+{
+    int result = parse_term();
+
+    while(1)
+    {
+        
+    }
+}
+
 void skip_space()
 {
     if (*input == ' ' || *input == '\t')
