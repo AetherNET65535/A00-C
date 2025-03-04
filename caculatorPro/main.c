@@ -23,12 +23,15 @@ int ASCII_to_number()
     {
         sign = -1;
         input++;
+        skip_space();
     }
 
     while (isdigit(*input))
     {
-        
+        num = num * 10 + (*input - '0');
+        input++;
     }
+    return num * sign;
 }
 
 void skip_space()
