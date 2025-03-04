@@ -5,10 +5,30 @@
 // 全局变量
 char* input;
 
-// 函数声明
-int parse_expr();
-int parse_term();
+// 函数声明（优先级声明）
+int parse_factor();     // 处理因子（高）
+int parse_term();       // 处理乘除法（中）
+int parse_expr();       // 处理加减法（低）
+
+// 函数声明 （功能函数）
+int ASCII_to_number();
+void skip_space();
+
+void skip_space()
+{
+    if (*input == ' ' || *input == '\t')
+    {
+        input++;
+    }
+}
+
+
+
 int parse_factor();
+{
+
+}
+
 
 int parse_term()
 {
@@ -68,14 +88,6 @@ int parse_expr()
         }
     }
     return result;
-}
-
-void skip_space()
-{
-    if (*input == ' ' || *input == '\t')
-    {
-        input++;
-    }
 }
 
 int main ()
