@@ -44,13 +44,31 @@ void skip_space()
 
 int parse_factor()
 {
+    int result;
     skip_space();
 
     if (*input == '(')
     {
+        *input++;
+        result = parse_expr();
+        skip_space();
+
+        if (*input != ')')
+        {
+            printf ("看到这条表示出BUG了！！ [缺少右括号]");
+            return 0;
+        }
+    }
+    else if (isdigit(*input) || *input == '-')
+    {
 
     }
-    else if (isdigit(*input) || )
+    else
+    {
+        printf ("看到这条表示出BUG了！！ [输入非法字符]\n");
+        return 0;
+    }
+    return result;
 }
 
 
@@ -120,7 +138,7 @@ int main ()
     printf ("请输入表达式（必须使用显式乘法）：\n");
     if (fgets(box, sizeof(box), stdin) == NULL)
     {
-        printf ("看到这条表示出BUG了！！ [获取用户输入字符串]\n");
+        printf ("看到这条表示出BUG了！！ [获取用户输入字符串失败]\n");
         return 0;
     }
 
