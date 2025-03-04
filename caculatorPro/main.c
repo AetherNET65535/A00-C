@@ -10,22 +10,38 @@ int parse_factor();     // 处理因子（高）
 int parse_term();       // 处理乘除法（中）
 int parse_expr();       // 处理加减法（低）
 
-// 函数声明 （功能函数）
+// 函数声明（功能函数）
 int ASCII_to_number();
 void skip_space();
+
+int ASCII_to_number()
+{
+    int sign = 1; // 正数与负数的标识符，默认正数
+    int num = 0; // 用于计算多位数，和之前写的汇编整数计算器差不多
+
+    if (*input == '-')
+    {
+        sign = -1;
+        input++;
+    }
+
+    while (isdigit(*input))
+    {
+        
+    }
+}
 
 void skip_space()
 {
     if (*input == ' ' || *input == '\t')
     {
         input++;
-    }
+    } 
 }
 
-
-
-int parse_factor();
+int parse_factor()
 {
+    skip_space();
 
 }
 
