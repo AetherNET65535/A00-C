@@ -46,6 +46,11 @@ int parse_factor()
 {
     skip_space();
 
+    if (*input == '(')
+    {
+
+    }
+    else if (isdigit(*input) || )
 }
 
 
