@@ -10,9 +10,40 @@ int parse_expr();
 int parse_term();
 int parse_factor();
 
+int parse_term()
+{
+    int result = factor();
+    skip_space();
+
+    while(1)
+    {
+        if (*input == '*' || *input == '/')
+        {
+            char op = *input;
+            input++;
+            int num = parse_term();
+
+            if (*input == '*')
+            {
+                result *= num;
+            }
+            else
+            {
+                result /= num;
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
+    return result;
+}
+
 int parse_expr()
 {
     int result = parse_term();
+    skip_space();
 
     while(1)
     {
@@ -36,6 +67,7 @@ int parse_expr()
             break;
         }
     }
+    return result;
 }
 
 void skip_space()
