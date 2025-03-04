@@ -16,7 +16,7 @@ int parse_expr()
 
     while(1)
     {
-        
+        if (*input == '+')
     }
 }
 
