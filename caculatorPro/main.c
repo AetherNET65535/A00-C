@@ -16,7 +16,25 @@ int parse_expr()
 
     while(1)
     {
-        if (*input == '+')
+        if (*input == '+' || *input == '-')
+        {
+            char op = *input;
+            input++;
+            int num = parse_term();
+
+            if (*input == '+')
+            {
+                result += num;
+            }
+            else
+            {
+                result -= num;
+            }
+        }
+        else
+        {
+            break;
+        }
     }
 }
 
