@@ -36,7 +36,7 @@ int ASCII_to_number()
 
 void skip_space()
 {
-    if (*input == ' ' || *input == '\t')
+    while (*input == ' ' || *input == '\t')
     {
         input++;
     } 
@@ -58,6 +58,7 @@ int parse_factor()
             printf ("看到这条表示出BUG了！！ [缺少右括号]");
             return 0;
         }
+        *input++;
     }
     else if (isdigit(*input) || *input == '-')
     {
@@ -65,16 +66,15 @@ int parse_factor()
     }
     else
     {
-        printf ("看到这条表示出BUG了！！ [输入非法字符]\n");
+        printf ("看到这条表示出BUG了！！ [输入非法字符] [当前字符%c]\n", *input);
         return 0;
     }
     return result;
 }
 
-
 int parse_term()
 {
-    int result = factor();
+    int result = parse_factor();
     skip_space();
 
     while(1)
