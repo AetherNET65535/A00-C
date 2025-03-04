@@ -144,4 +144,7 @@ int main ()
 
     input = box;
     int result = parse_expr(); 
+
+    printf ("计算结果：%d\n", result);
+    return 0;
 }
