@@ -61,7 +61,7 @@ int parse_factor()
     }
     else if (isdigit(*input) || *input == '-')
     {
-
+        result = ASCII_to_number();
     }
     else
     {
