@@ -49,7 +49,7 @@ int parse_factor()
 
     if (*input == '(')
     {
-        *input++;
+        input++;
         result = parse_expr();
         skip_space();
 
@@ -58,7 +58,7 @@ int parse_factor()
             printf ("看到这条表示出BUG了！！ [缺少右括号]");
             return 0;
         }
-        *input++;
+        input++;
     }
     else if (isdigit(*input) || *input == '-')
     {
@@ -85,12 +85,17 @@ int parse_term()
             input++;
             int num = parse_term();
 
-            if (*input == '*')
+            if (op == '*')
             {
                 result *= num;
             }
             else
             {
+                if (num == 0)
+                {
+                    printf ("看到这条表示出BUG了！！ [除数不能为0]\n");
+                    return 0;
+                }
                 result /= num;
             }
         }
@@ -115,7 +120,7 @@ int parse_expr()
             input++;
             int num = parse_term();
 
-            if (*input == '+')
+            if (op == '+')
             {
                 result += num;
             }
