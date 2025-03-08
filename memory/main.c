@@ -29,7 +29,14 @@ static int is_started = 0;
 
 void start_first_block ()
 {
-    first_block = (memeowry_block_header*) memeowry_chip
+    // 把内存条插上主板
+    first_block = (memeowry_block_header*)memeowry_chip;
+    
+    // 系统开始初始化内存
+    first_block -> size = MEMEOWRY_SIZE - sizeof(memeowry_block_header);
+    first_block -> status = FREE;
+    first_block -> prev = NULL;
+    first_block -> next = NULL;    
 }
 
 int main ()
