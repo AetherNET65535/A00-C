@@ -18,10 +18,19 @@ typedef struct memeowry_block_header
 {
     size_t size;
     Block_Status status;
-
     struct memeowry_block_header *prev;
     struct memeowry_block_header *next;
-} memeowry_block_header
+} memeowry_block_header;
+
+// 内存条，第一个内存块，启动了没！？O神启动！！
+static unsigned char memeowry_chip [MEMEOWRY_SIZE];
+static memeowry_block_header* first_block = NULL;
+static int is_started = 0;
+
+void start_first_block ()
+{
+    first_block = (memeowry_block_header*) memeowry_chip
+}
 
 int main ()
 {
