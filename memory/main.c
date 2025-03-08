@@ -22,24 +22,35 @@ typedef struct memeowry_block_header
     struct memeowry_block_header *next;
 } memeowry_block_header;
 
-// 内存条，第一个内存块，启动了没！？O神启动！！
+// 内存条，第一个内存块，初始化识别码
 static unsigned char memeowry_chip [MEMEOWRY_SIZE];
 static memeowry_block_header* first_block = NULL;
-static int is_started = 0;
+static int is_initialized = 0;
 
-void start_first_block ()
+void init_first_block ()
 {
+    // BIOS自检初始化了没，简称“给自己防呆”
+    if (is_initialized)
+    {
+        return;
+    }
+
     // 把内存条插上主板
     first_block = (memeowry_block_header*)memeowry_chip;
     
-    // 系统开始初始化内存
+    // BIOS开始初始化内存
     first_block -> size = MEMEOWRY_SIZE - sizeof(memeowry_block_header);
     first_block -> status = FREE;
     first_block -> prev = NULL;
-    first_block -> next = NULL;    
+    first_block -> next = NULL;
+
+    is_initialized = 1;
 }
 
 int main ()
 {
+    printf("%d\n", is_initialized);
 
+    init_first_block();
+    printf("%d\n", is_initialized);
 }
