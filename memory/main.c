@@ -68,7 +68,13 @@ void* my_malloc (size_t size)
     current = first_block;
     while(current)
     {
-        return 0;
+        if (current -> status == FREE && current -> size >= size)
+        {
+            if (current -> size >= size + sizeof(memory_block_header) + MEMORY_MIN_SIZE)
+            {
+                new_block = (memory_block_header*)(size - current -> size - sizeof(memory_block_header));
+            }
+        }
     }
 }
 
