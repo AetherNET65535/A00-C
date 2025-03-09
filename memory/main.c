@@ -57,10 +57,17 @@ void* my_malloc (size_t size)
     }
 
     size = (size + 3) & (~3);
+    printf("即将创建容量为%d的内存块...\n", size);
 
     if (size == 0)
     {
         printf("不能创建容量为0的内存块！！\n");
+        return 0;
+    }
+
+    current = first_block;
+    while(current)
+    {
         return 0;
     }
 }
@@ -72,5 +79,5 @@ int main ()
     init_first_block();
     printf("%d\n", is_initialized);
 
-    my_malloc(0);
+    my_malloc(100);
 }
