@@ -48,7 +48,21 @@ void init_first_block ()
 
 void* my_malloc (size_t size)
 {
-    memory_block_header
+    memory_block_header* current;
+    memory_block_header* new_block;
+
+    if (!is_initialized)
+    {
+        init_first_block();
+    }
+
+    size = (size + 3) & (~3);
+
+    if (size == 0)
+    {
+        printf("不能创建容量为0的内存块！！\n");
+        return 0;
+    }
 }
 
 int main ()
@@ -57,4 +71,6 @@ int main ()
 
     init_first_block();
     printf("%d\n", is_initialized);
+
+    my_malloc(0);
 }
