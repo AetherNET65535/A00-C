@@ -3,8 +3,8 @@
 #include <string.h>
 
 // 内存条（块）总容量 和 最小容量
-#define MEMORY_SIZE 1024 * 1 //1024 * x = xKiB
-#define MEMORY_MIN_SIZE sizeof(memory_block_header)
+#define MEMORY_SIZE 1024 * 1 // 1024 * x = xKiB
+#define MEMORY_MIN_SIZE sizeof(memory_block_header) + 4 // 下一块内存块最低大小
 
 // 内存块使用状态
 typedef enum
