@@ -77,24 +77,22 @@ void* my_malloc (size_t size)
         {
             // 如果内存够用了，看看能不能分一下
             if (current -> size >= size + sizeof(memory_block_header) + MEMORY_MIN_SIZE)
-            {
+            {   
+                // 计算新块的地址
                 new_block = (memory_block_header*)((unsigned char*)current -> size + sizeof(memory_block_header) + size);
 
-                new_block -> size = current -> size - size;
+                // 设置新块属性
+                new_block -> size = current -> size - sizeof(memory_block_header) - size;
                 new_block -> status = FREE;
                 new_block -> prev = current;
-                new_block -> next = 
+                new_block -> next = current -> next;
             }
         }
     }
+    return 0;
 }
 
 int main ()
 {
-    printf("%d\n", is_initialized);
-
-    init_first_block();
-    printf("%d\n", is_initialized);
-
-    my_malloc(100);
+    printf ("%zuB\n", sizeof(memory_block_header));
 }
