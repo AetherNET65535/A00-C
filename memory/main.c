@@ -51,14 +51,17 @@ void* my_malloc (size_t size)
     memory_block_header* current;
     memory_block_header* new_block;
 
+    // 又一个防呆，这是让忘记初始化的人用的
     if (!is_initialized)
     {
         init_first_block();
     }
 
+    // 对齐4字节
     size = (size + 3) & (~3);
     printf("即将创建容量为%d的内存块...\n", size);
 
+    // 防止无用块的创建
     if (size == 0)
     {
         printf("不能创建容量为0的内存块！！\n");
@@ -73,6 +76,11 @@ void* my_malloc (size_t size)
             if (current -> size >= size + sizeof(memory_block_header) + MEMORY_MIN_SIZE)
             {
                 new_block = (memory_block_header*)(size - current -> size - sizeof(memory_block_header));
+
+                new_block -> size = current -> size - size;
+                new_block -> status = FREE;
+                new_block -> prev = current;
+                new_block -> next = 
             }
         }
     }
