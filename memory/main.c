@@ -69,13 +69,16 @@ void* my_malloc (size_t size)
     }
 
     current = first_block;
+
     while(current)
     {
+        // 寻找合适的内存块
         if (current -> status == FREE && current -> size >= size)
         {
+            // 如果内存够用了，看看能不能分一下
             if (current -> size >= size + sizeof(memory_block_header) + MEMORY_MIN_SIZE)
             {
-                new_block = (memory_block_header*)(size - current -> size - sizeof(memory_block_header));
+                new_block = (memory_block_header*)((unsigned char*)current -> size + sizeof(memory_block_header) + size);
 
                 new_block -> size = current -> size - size;
                 new_block -> status = FREE;
