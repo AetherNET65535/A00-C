@@ -43,6 +43,8 @@ void init_first_block ()
     first_block -> prev = NULL;
     first_block -> next = NULL;
 
+    printf("adress: %p", first_block);
+
     is_initialized = 1;
 }
 
@@ -86,6 +88,10 @@ void* my_malloc (size_t size)
                 new_block -> status = FREE;
                 new_block -> prev = current;
                 new_block -> next = current -> next;
+
+                // 设置当前块属性
+                current -> size = size;
+
             }
         }
     }
@@ -95,4 +101,5 @@ void* my_malloc (size_t size)
 int main ()
 {
     printf ("%zuB\n", sizeof(memory_block_header));
+    printf("sizeof: %p", memory_block_header);
 }
