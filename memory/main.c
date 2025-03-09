@@ -43,8 +43,6 @@ void init_first_block ()
     first_block -> prev = NULL;
     first_block -> next = NULL;
 
-    printf("adress: %p", first_block);
-
     is_initialized = 1;
 }
 
@@ -101,5 +99,4 @@ void* my_malloc (size_t size)
 int main ()
 {
     printf ("%zuB\n", sizeof(memory_block_header));
-    printf("sizeof: %p", memory_block_header);
 }
