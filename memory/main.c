@@ -77,11 +77,13 @@ void* my_malloc (size_t size)
         // 寻找合适的内存块
         if (current -> status == FREE && current -> size >= size)
         {
-            printf("找到合适的内存块\n");
+            printf ("找到合适的内存块\n");
 
             // 如果内存够用了，看看能不能分一下
             if (current -> size >= size + BLOCK_MIN_SIZE)
             {   
+                printf ("可分块，正在创建新块...\n");
+
                 // 计算新块的地址
                 new_block = (memory_block_header*)((unsigned char*)current -> size + sizeof(memory_block_header) + size);
 
@@ -90,6 +92,8 @@ void* my_malloc (size_t size)
                 new_block -> status = FREE;
                 new_block -> prev = current;
                 new_block -> next = current -> next;
+
+                printf ("新块设置完成\n");
 
                 // 设置当前块属性
                 current -> size = size;
@@ -103,6 +107,7 @@ void* my_malloc (size_t size)
 
             }
             current -> status = USED;
+            printf ("用户块设置完成\n");
         }
         // 返回数据部门指针（跳过头部）
         return (void*)((unsigned char*)current + sizeof(memory_block_header));
