@@ -4,7 +4,7 @@
 
 // 内存条（块）总容量 和 最小容量
 #define MEMORY_SIZE 1024 * 1 // 1024 * x = xKiB
-#define MEMORY_MIN_SIZE sizeof(memory_block_header) + 4 // 下一块内存块最低大小
+#define BLOCK_MIN_SIZE sizeof(memory_block_header) + 4 // 下一块内存块最低大小
 
 // 内存块使用状态
 typedef enum
@@ -76,7 +76,7 @@ void* my_malloc (size_t size)
         if (current -> status == FREE && current -> size >= size)
         {
             // 如果内存够用了，看看能不能分一下
-            if (current -> size >= size + sizeof(memory_block_header) + MEMORY_MIN_SIZE)
+            if (current -> size >= size + BLOCK_MIN_SIZE)
             {   
                 // 计算新块的地址
                 new_block = (memory_block_header*)((unsigned char*)current -> size + sizeof(memory_block_header) + size);
