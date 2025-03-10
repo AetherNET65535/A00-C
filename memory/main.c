@@ -85,11 +85,10 @@ void* my_malloc (size_t size)
                 printf ("可分块，正在创建新块...\n");
 
                 // 计算新块的地址
-                new_block = (memory_block_header*)((unsigned char*)current -> size + sizeof(memory_block_header) + size);
+                new_block = (memory_block_header*)((unsigned char*)current + sizeof(memory_block_header) + size);
                 
                 // 设置新块属性
                 new_block -> size = current -> size - sizeof(memory_block_header) - size;
-                printf("can set size\n");
                 new_block -> status = FREE;
                 new_block -> prev = current;
                 new_block -> next = current -> next;
@@ -108,7 +107,8 @@ void* my_malloc (size_t size)
 
             }
             current -> status = USED;
-            printf ("用户块设置完成\n");
+            printf 
+            ("用户块设置完成：\n头部容量：%zu\n数据容量：%zu\n");
         }
         // 返回数据部门指针（跳过头部）
         return (void*)((unsigned char*)current + sizeof(memory_block_header));
@@ -120,5 +120,4 @@ int main ()
 {
     init_first_block();
     my_malloc(200);
-    printf ("%zuB\n", sizeof(memory_block_header));
 }
