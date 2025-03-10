@@ -72,9 +72,13 @@ void* my_malloc (size_t size)
 
     while(current)
     {
+        printf ("正在寻找合适的内存块...\n");
+
         // 寻找合适的内存块
         if (current -> status == FREE && current -> size >= size)
         {
+            printf("找到合适的内存块\n");
+
             // 如果内存够用了，看看能不能分一下
             if (current -> size >= size + BLOCK_MIN_SIZE)
             {   
@@ -89,14 +93,26 @@ void* my_malloc (size_t size)
 
                 // 设置当前块属性
                 current -> size = size;
+                current -> next = new_block;
+
+                // 如果之后还有一个内存块，连一连～
+                if (new_block -> next)
+                {
+                    new_block -> next -> prev = new_block;
+                }
 
             }
+            current -> status = USED;
         }
+        // 返回数据部门指针（跳过头部）
+        return (void*)((unsigned char*)current + sizeof(memory_block_header));
     }
-    return 0;
+    current = current -> next;
 }
 
 int main ()
 {
+    init_first_block();
+    my_malloc(200);
     printf ("%zuB\n", sizeof(memory_block_header));
 }
