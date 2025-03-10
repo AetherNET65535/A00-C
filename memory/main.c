@@ -86,9 +86,10 @@ void* my_malloc (size_t size)
 
                 // 计算新块的地址
                 new_block = (memory_block_header*)((unsigned char*)current -> size + sizeof(memory_block_header) + size);
-
+                
                 // 设置新块属性
                 new_block -> size = current -> size - sizeof(memory_block_header) - size;
+                printf("can set size\n");
                 new_block -> status = FREE;
                 new_block -> prev = current;
                 new_block -> next = current -> next;
