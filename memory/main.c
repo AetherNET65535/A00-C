@@ -107,8 +107,7 @@ void* my_malloc (size_t size)
 
             }
             current -> status = USED;
-            printf 
-            ("用户块设置完成：\n头部容量：%zu\n数据容量：%zu\n");
+            printf ("用户块设置完成：\n数据容量：%zu\n", current -> size);
         }
         // 返回数据部门指针（跳过头部）
         return (void*)((unsigned char*)current + sizeof(memory_block_header));
