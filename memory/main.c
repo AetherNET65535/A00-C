@@ -130,12 +130,28 @@ void my_free (void* ptr)
     // 夺回头部控制权
     now_block = (memory_block_header*)((unsigned char*)ptr - sizeof(memory_block_header));
 
+    // 检测用户有没有发错地址，又一个防呆呀～
+    if ((unsigned char*)now_block < memory_chip || (unsigned char*)now_block >= memory_chip + MEMORY_SIZE)
+    {
+        printf ("发错地址啦！\n");
+        return 0;
+    }
+
+    // 先FREE一下，不然等下旁边没有FREE就完蛋蛋了
+    now_block -> status = FREE;
+
     // 向前合并
     after_block = now_block;
 
     while (after_block -> next != NULL)
     {
-        
+        after_block = after_block -> next;
+
+        if (after_block -> status = FREE)
+        {
+            now_block -> size += after_block -> size + sizeof(memory_block_header);
+            now_block ->
+        }
     }
 }
 
