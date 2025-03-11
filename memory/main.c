@@ -115,7 +115,29 @@ void* my_malloc (size_t size)
     current = current -> next;
 }
 
+void my_free (void* ptr)
+{
+    memory_block_header* now_block;
+    memory_block_header* after_block;
 
+    // 检测野指针
+    if (ptr == NULL)
+    {
+        printf ("FREE函数检测到野指针\n");
+        return 0;
+    }
+
+    // 夺回头部控制权
+    now_block = (memory_block_header*)((unsigned char*)ptr - sizeof(memory_block_header));
+
+    // 向前合并
+    after_block = now_block;
+
+    while (after_block -> next != NULL)
+    {
+        
+    }
+}
 
 int main ()
 {
