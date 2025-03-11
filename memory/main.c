@@ -115,6 +115,8 @@ void* my_malloc (size_t size)
     current = current -> next;
 }
 
+
+
 int main ()
 {
     init_first_block();
