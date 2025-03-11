@@ -140,6 +140,7 @@ void my_free (void* ptr)
 
     // 先FREE一下，不然等下旁边没有FREE就完蛋蛋了
     now_block -> status = FREE;
+    printf ("初始解放内存，完成！\n");
 
     // 向前合并
     after_block = now_block;
@@ -177,7 +178,7 @@ void my_free (void* ptr)
             break;
         }
     }
-    printf("done\n");
+    printf("看到这个说明大功告成了！！\n");
 }
 
 int main ()
