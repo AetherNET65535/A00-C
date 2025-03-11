@@ -124,17 +124,18 @@ void my_free (void* ptr)
     if (ptr == NULL)
     {
         printf ("FREE函数检测到野指针\n");
-        return 0;
+        return;
     }
 
     // 夺回头部控制权
     now_block = (memory_block_header*)((unsigned char*)ptr - sizeof(memory_block_header));
+    printf ("已夺回头部控制权\n");
 
     // 检测用户有没有发错地址，又一个防呆呀～
     if ((unsigned char*)now_block < memory_chip || (unsigned char*)now_block >= memory_chip + MEMORY_SIZE)
     {
         printf ("发错地址啦！\n");
-        return 0;
+        return;
     }
 
     // 先FREE一下，不然等下旁边没有FREE就完蛋蛋了
@@ -150,13 +151,39 @@ void my_free (void* ptr)
         if (after_block -> status = FREE)
         {
             now_block -> size += after_block -> size + sizeof(memory_block_header);
-            now_block ->
+            now_block -> next = after_block -> next;
+            printf ("合并成功！\n");
+        }
+        else
+        {
+            break;
         }
     }
+
+    // 向后合并
+    after_block = now_block;
+
+    while (after_block -> prev != NULL)
+    {
+        after_block = after_block -> prev;
+
+        if (after_block -> status = FREE)
+        {
+            now_block -> size += after_block -> size + sizeof(memory_block_header);
+            now_block -> prev = after_block -> prev;
+        }
+        else
+        {
+            break;
+        }
+    }
+    printf("done\n");
 }
 
 int main ()
 {
     init_first_block();
-    my_malloc(200);
+    void* p = my_malloc(200);
+    my_free(p);
+
 }
