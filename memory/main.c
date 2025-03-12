@@ -181,6 +181,15 @@ void my_free (void* ptr)
     printf("看到这个说明大功告成了！！\n");
 }
 
+void my_merge ()
+{
+    memory_block_header* now_block;
+    memory_block_header* first_free;
+    memory_block_header* last_used;
+
+    
+}
+
 int main ()
 {
     init_first_block();
