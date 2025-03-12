@@ -187,7 +187,15 @@ void my_merge ()
     memory_block_header* first_free;
     memory_block_header* last_used;
 
-    
+    now_block = first_block;
+    int first_status = first_block -> status;
+    printf ("第一个块的使用情况为%s", first_block -> status == FREE ? "FREE":"USED");
+
+    while (now_block != NULL)
+    {
+        
+    }
+
 }
 
 int main ()
