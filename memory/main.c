@@ -149,7 +149,7 @@ void my_free (void* ptr)
     {
         after_block = after_block -> next;
 
-        if (after_block -> status = FREE)
+        if (after_block -> status == FREE)
         {
             now_block -> size += after_block -> size + sizeof(memory_block_header);
             now_block -> next = after_block -> next;
@@ -214,10 +214,9 @@ void my_merge ()
                 else
                 {
                     first_free -> next += now_block -> size + sizeof(memory_block_header);
-                    
                 }
             }
-            
+
             else if (now_block == USED)
             {
                 if (now_block == last_used)
@@ -228,6 +227,21 @@ void my_merge ()
                 {
                     last_used = now_block;
                 }
+            }
+        }
+
+        else if (first_status == USED)
+        {
+            if (now_block == FREE)
+            {
+                first_free -> size += now_block -> size + sizeof(memory_block_header);
+            }
+            
+            now_block -> prev -> next = now_block -> next;
+                
+            if (now_block -> next != NULL)
+            {
+                now_block -> next -> prev = now_block -> prev;
             }
         }
         
