@@ -193,6 +193,18 @@ void my_merge ()
 
     while (now_block != NULL)
     {
+        // FREE为第一个的解决方案
+        if (first_status == FREE)
+        {
+            if (now_block -> status == FREE)
+            {
+                
+            }
+            else if (now_block == USED)
+            {
+                
+            }
+        }
         
     }
 
