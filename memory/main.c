@@ -244,6 +244,7 @@ void my_merge ()
                 now_block -> next -> prev = now_block -> prev;
             }
         }
+        now_block = now_block -> next;
         
     }
 
