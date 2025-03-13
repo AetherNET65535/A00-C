@@ -204,20 +204,30 @@ void my_merge ()
                 {
                     first_free -> size += now_block -> size + sizeof(memory_block_header);
                     first_free -> next = now_block -> next;
+                    
                     if (now_block -> next != NULL)
                     {
                         now_block -> next -> prev = first_free;
                     }
                 }
+
                 else
                 {
                     first_free -> next += now_block -> size + sizeof(memory_block_header);
                     
                 }
             }
+            
             else if (now_block == USED)
             {
-                
+                if (now_block == last_used)
+                {
+                    after_used = 1;
+                }
+                else
+                {
+                    last_used = now_block;
+                }
             }
         }
         
