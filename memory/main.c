@@ -183,6 +183,8 @@ void my_free (void* ptr)
 
 void my_merge ()
 {
+    int after_used = 0;
+
     memory_block_header* now_block;
     memory_block_header* first_free;
     memory_block_header* last_used;
@@ -198,7 +200,20 @@ void my_merge ()
         {
             if (now_block -> status == FREE)
             {
-                
+                if (after_used != 1)
+                {
+                    first_free -> size += now_block -> size + sizeof(memory_block_header);
+                    first_free -> next = now_block -> next;
+                    if (now_block -> next != NULL)
+                    {
+                        now_block -> next -> prev = first_free;
+                    }
+                }
+                else
+                {
+                    first_free -> next += now_block -> size + sizeof(memory_block_header);
+                    
+                }
             }
             else if (now_block == USED)
             {
