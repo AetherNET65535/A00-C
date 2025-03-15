@@ -181,6 +181,7 @@ void my_free (void* ptr)
     printf("看到这个说明大功告成了！！\n");
 }
 
+// TODO: 给这函数写个...寻找第一个free和used块的功能，不然这merge就是个残废版
 void my_merge ()
 {
     int after_used = 0;
